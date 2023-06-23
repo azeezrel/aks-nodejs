@@ -12,3 +12,6 @@ images:
 - name: argocd
   newName: azeezbabalola/argocd
   newTag: 0c237d3c37a003b75f3c070c1035a737d8a10a49
+- name: my-node-app
+  newName: azeezbabalola/my-node-app
+  newTag: 426661a8d3ed762cbc807ec0bb6f9f1e23d9cf2f
