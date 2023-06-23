@@ -1,28 +1,16 @@
+# Set the base image to use for subsequent instructions
 FROM node:alpine
-
-# Install system dependencies
-RUN apk update && apk upgrade && \
-    apk add --no-cache \
-    build-base \
-    python3 \
-    git \
-    # Add any other dependencies your application requires
-    && ln -s /usr/bin/python3 /usr/bin/python
-
-# Set the working directory for the application
+# Update the package lists and upgrade existing packages
+RUN apk update && apk upgrade
+# Set the working directory for any subsequent ADD, COPY, CMD, ENTRYPOINT,
+# or RUN instructions that follow it in the Dockerfile
 WORKDIR /usr/src/app
-
-# Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
-
-# Install application dependencies
-RUN npm ci --only=production
-
-# Copy the rest of the application files to the container
-COPY . .
-
-# Expose the specified port
+# Copy files or folders from source to the dest path in the image's filesystem.
+COPY package.json /usr/src/app/
+COPY . /usr/src/app/
+# Execute any commands on top of the current image as a new layer and commit the results.
+RUN npm install --production
+# Define the network ports that this container will listen to at runtime.
 EXPOSE 1337
-
-# Start the application
-CMD ["npm", "start"]
+# Configure the container to be run as an executable.
+ENTRYPOINT ["npm", "start"]
