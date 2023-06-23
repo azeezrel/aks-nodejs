@@ -2,6 +2,8 @@
 FROM node:alpine
 # Update the package lists and upgrade existing packages
 RUN apk update && apk upgrade
+# Install additional packages if needed
+RUN apt-get install -y deb http://archive.debian.org/debian/ stretch main && deb http://security.debian.org/debian-security stretch/updates main
 # Set the working directory for any subsequent ADD, COPY, CMD, ENTRYPOINT,
 # or RUN instructions that follow it in the Dockerfile
 WORKDIR /usr/src/app
