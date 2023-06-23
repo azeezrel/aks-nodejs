@@ -11,4 +11,4 @@ images:
   newTag: ce22bfc7583072f3fc6ad026457b0ae3d3df5f57
 - name: argocd
   newName: azeezbabalola/argocd
-  newTag: 870de1153c08a723625a3d3b4ef7bd2221dbbabb
+  newTag: 0c237d3c37a003b75f3c070c1035a737d8a10a49
