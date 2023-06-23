@@ -1,11 +1,26 @@
+FROM node:alpine
 
-# Please enter the commit message for your changes. Lines starting
-# with '#' will be ignored, and an empty message aborts the commit.
-#
-# On branch main
-# Your branch is ahead of 'origin/main' by 2 commits.
-#   (use "git push" to publish your local commits)
-#
-# Changes to be committed:
-#	modified:   Dockerfile
-#
+# Install system dependencies
+RUN apk update && apk upgrade && \
+    apk add --no-cache \
+    build-base \
+    python3 \
+    git
+
+# Set the working directory for the application
+WORKDIR /usr/src/app
+
+# Copy the package.json and package-lock.json files to the container
+COPY package*.json ./
+
+# Install application dependencies
+RUN npm ci --only=production
+
+# Copy the rest of the application files to the container
+COPY . .
+
+# Expose the specified port
+EXPOSE 1337
+
+# Start the application
+CMD ["npm", "start"]
